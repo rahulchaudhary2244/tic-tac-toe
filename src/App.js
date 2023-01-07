@@ -3,19 +3,19 @@ import { useEffect, useState } from "react";
 
 const cell = {
   value: "",
-  isUpdated: false
+  isUpdated: false,
 };
 
 export default function App() {
   const [matrix, setMatrix] = useState([
     [cell, cell, cell],
     [cell, cell, cell],
-    [cell, cell, cell]
+    [cell, cell, cell],
   ]);
   const [lastValue, setLastValue] = useState("");
   const [gameResult, setGameResult] = useState({
     message: "",
-    isOver: false
+    isOver: false,
   });
 
   const getNewValue = () => (lastValue === "X" ? "O" : "X");
@@ -60,14 +60,14 @@ export default function App() {
     ) {
       return {
         message: "This is a tie",
-        isOver: true
+        isOver: true,
       };
     }
 
     //When empty cells are still present
     return {
       message: "Empty cells left",
-      isOver: false
+      isOver: false,
     };
   };
 
@@ -76,12 +76,12 @@ export default function App() {
     if (set.size === 1 && ["X", "O"].includes(tmpArr[0]))
       return {
         message: `${tmpArr[0]} is winner`,
-        isOver: true
+        isOver: true,
       };
 
     return {
       message: "Empty cells left",
-      isOver: false
+      isOver: false,
     };
   };
 
@@ -91,7 +91,7 @@ export default function App() {
     const tmpMatrix = JSON.parse(JSON.stringify(matrix));
     tmpMatrix[row][col] = {
       value: getNewValue(),
-      isUpdated: true
+      isUpdated: true,
     };
     setLastValue(getNewValue());
     setMatrix(tmpMatrix);
@@ -101,19 +101,19 @@ export default function App() {
     setMatrix([
       [cell, cell, cell],
       [cell, cell, cell],
-      [cell, cell, cell]
+      [cell, cell, cell],
     ]);
     setLastValue("");
     setGameResult({
       message: "",
-      isOver: false
+      isOver: false,
     });
   };
 
   useEffect(() => {
     const value = gameValidations();
     setGameResult(value);
-  }, [matrix]);
+  }, [lastValue]);
 
   return (
     <>
